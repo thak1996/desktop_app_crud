@@ -3,15 +3,15 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class DatabaseHelper {
-  final databaseName = 'app_database.db';
+  final databaseName = 'appDatabase.db';
 
   String accountTbl = '''
   CREATE TABLE IF NOT EXISTS accounts (
-    accId INTEGER PRIMARY KEY AUTOINCREMENT,
-    accHolder TEXT NOT NULL,
-    accName TEXT NOT NULL,
-    accStatus INTEGER,
-    createAt TEXT
+  accId INTEGER PRIMARY KEY AUTOINCREMENT,
+  accHolder TEXT NOT NULL,
+  accName TEXT NOT NULL,
+  accStatus INTEGER,
+  createdAt TEXT
   )''';
 
   /// Database connection
@@ -58,5 +58,14 @@ class DatabaseHelper {
   Future<int> deleteAccount(int accId) async {
     final Database db = await init();
     return await db.delete("accounts", where: "accId = ?", whereArgs: [accId]);
+  }
+
+  Future<List<AccountsJson>> filterAccounts(String keyword) async {
+    final Database db = await init();
+    List<Map<String, Object?>> result = await db.rawQuery(
+      "select * from accounts where accHolder LIKE ? OR accName LIKE ?",
+      ["%$keyword%", "%$keyword%"],
+    );
+    return result.map((e) => AccountsJson.fromMap(e)).toList();
   }
 }

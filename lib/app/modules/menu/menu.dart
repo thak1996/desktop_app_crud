@@ -23,7 +23,9 @@ class _MenuState extends State<Menu> {
           background(
             Column(
               children: [
-                Icon(AntDesign.sketch_outline, size: 150),
+                SizedBox(height: 16),
+                Brand(Brands.the_big_bang_theory, size: 150),
+                SizedBox(height: 16),
                 Expanded(
                   flex: 3,
                   child: ListView.builder(

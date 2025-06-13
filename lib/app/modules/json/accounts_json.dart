@@ -6,18 +6,18 @@ AccountsJson accountsJsonFromMap(String str) =>
 String accountsJsonToMap(AccountsJson data) => json.encode(data.toMap());
 
 class AccountsJson {
-  final int accId;
+  final int? accId;
   final String accHolder;
   final String accName;
   final int accStatus;
-  final String accCrfeatedAt;
+  final String createdAt;
 
   AccountsJson({
-    required this.accId,
+    this.accId,
     required this.accHolder,
     required this.accName,
     required this.accStatus,
-    required this.accCrfeatedAt,
+    required this.createdAt,
   });
 
   factory AccountsJson.fromMap(Map<String, dynamic> json) => AccountsJson(
@@ -25,7 +25,7 @@ class AccountsJson {
     accHolder: json["accHolder"],
     accName: json["accName"],
     accStatus: json["accStatus"],
-    accCrfeatedAt: json["accCrfeatedAt"],
+    createdAt: json["createdAt"],
   );
 
   Map<String, dynamic> toMap() => {
@@ -33,6 +33,6 @@ class AccountsJson {
     "accHolder": accHolder,
     "accName": accName,
     "accStatus": accStatus,
-    "accCrfeatedAt": accCrfeatedAt,
+    "createdAt": createdAt,
   };
 }
